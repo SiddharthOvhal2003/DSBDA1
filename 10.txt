@@ -1,0 +1,19 @@
+import seaborn as sb
+ds = sb.load_dataset('iris')
+ds.head()
+
+
+import matplotlib.pyplot as plt
+fig, axes = plt.subplots(2,2,figsize = (16,9))
+sb.histplot(ds['sepal_length'], ax = axes[0,0])
+sb.histplot(ds['sepal_width'], ax = axes[0,1])
+sb.histplot(ds['petal_length'], ax = axes[1,0])
+sb.histplot(ds['petal_width'], ax = axes[1,1])
+
+
+import matplotlib.pyplot as plt
+fig, axes = plt.subplots(2,2,figsize=(16,9))
+sb.boxplot(x='species',y='petal_length',data = ds, ax=axes[0,0])
+sb.boxplot(x='species',y='petal_width',data = ds, ax=axes[0,1])
+sb.boxplot(x='species',y='sepal_length',data = ds, ax=axes[1,0])
+sb.boxplot(x='species',y='sepal_width',data = ds, ax=axes[1,1])

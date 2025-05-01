@@ -1,0 +1,20 @@
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv("StudentsPerformance.csv")
+df.head()
+
+df.isnull().sum()
+
+df.dropna()
+
+math_score_mean = df["math score"].mean()
+df["math score"] = df["math score"].fillna(math_score_mean)
+df.head()
+
+df.boxplot()
+
+newdf = df[df["math score"] > 30]
+newdf.head()
+
+newdf.boxplot()
