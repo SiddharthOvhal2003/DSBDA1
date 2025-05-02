@@ -1,34 +1,37 @@
 import pandas as pd
 import numpy as np
-
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn import linear_model
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error
 
+df=pd.read_csv("boston_housing.csv")
 
-df = pd.read_csv("BostonHousing.csv")
-df = df.dropna()
+df.shape
+
+df.describe()
+
 df.head()
 
-df.columns
+df_x=df
+print(df_x)
 
-x = df[['crim', 'zn', 'indus', 'chas', 'nox', 'rm', 'age', 'dis', 'rad', 'tax',
-       'ptratio', 'b', 'lstat']]
-x.head()
+df_y=df.price
+print(df_y)
 
-y = df['medv']
-y.head()
+reg =linear_model.LinearRegression()
 
-x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.25,random_state=42)
+x_train, x_test, y_train, y_test = train_test_split(df_x, df_y, test_size=0.33, random_state=42)
 
-model = LinearRegression()
-model.fit(x_train,y_train)
+reg.fit(x_train, y_train)
 
-y_pred = model.predict(x_test)
-y_pred
+print(reg.coef_)
 
-model.score(x_train,y_train)
+y_pred = reg.predict(x_test)
+print(y_pred)
 
-model.score(x_test,y_test)
+y_pred[0]
 
-np.sqrt(mean_squared_error(y_test,y_pred))
+y_test[0]
+
+print(np.mean((y_pred-y_test)**2))

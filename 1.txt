@@ -1,32 +1,73 @@
 import pandas as pd
-import numpy as np
 
-df = pd.read_csv('StudentsPerformance.csv')
-df.head()
+df=pd.read_csv("data.csv")
 
-df.isnull().sum()
+df.dtypes
 
 df.describe()
 
-df.notnull().sum()
+df.groupby(by=['Age']).size()
 
-df.size
+df.isna().sum()
 
-df.ndim
+df.isnull()
 
-df.shape
+type("Age")
 
-df.info()
+type("BMI")
 
-df['writing score'].astype(int)
+df.Age.astype(float)
 
-df.dropna()
-df.isnull().sum()
+df.Age=df.Age.astype(float)
 
-df['writing score'] = df['writing score'].astype(int)
+df.describe()
 
-df.head()
+df.dtypes
 
-df["gender"] = df['gender'].replace({"female":0,"male":1})
+df.sort_values('Age')
 
-df.sample(5)
+df.sort_values('Age',ascending=False)
+
+df.rename(columns={'Age':'Year Old'})
+
+df.sort_index()
+
+df.reset_index()
+
+df.drop(columns=['Age'])
+
+pd.melt(df)
+
+df.drop_duplicates()
+
+df.head(5)
+
+df.tail(5)
+
+df.count()
+
+for col in df.columns:
+    print(f"Unique values in {col}: {df[col].unique()}")
+df['Classification'] = pd.to_numeric(df['Classification'], errors='coerce')
+df.median()
+
+df.quantile
+
+df.min()
+
+df.max()
+
+for col in df.columns:
+    print(f"Unique values in {col}: {df[col].unique()}")
+df.mean()
+
+df = df.apply(pd.to_numeric, errors='coerce')
+df.std()
+
+pd.get_dummies(df['Age'])
+
+pd.get_dummies(df['Glucose'])
+
+df.iloc[2:50]
+
+print(pd.get_dummies(df['Glucose']))

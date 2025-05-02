@@ -1,20 +1,62 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-df = pd.read_csv("StudentsPerformance.csv")
+df = pd.read_csv("acdemic_data.csv")
+
+print(df.head())
+
+missing_value_formats = ["n.a.","?","NA","n/a", "na", "--"]
+df = pd.read_csv("acdemic_data.csv", na_values = missing_value_formats)
+
+print(df['Gender'].head(10))
+
+print(df['Gender'].isnull().head(10))
+
+print(df['Gender'].notnull().head(10))
+
+null_filter = df['Gender'].notnull()
+
+print(df[null_filter])
+
+print(df.isnull().values.any())
+
+print(df.isnull().sum())
+
+df.dropna(axis=0,inplace=True)
+
+new_df = df.dropna(axis = 0, how ='any')
+
+new_df = df.dropna(axis = 0, how ='all')
+
+new_df = df.dropna(axis = 1, how ='any')
+
+new_df = df.dropna(axis = 1, how ='all')
+
+df['SPOS'].fillna(0, inplace=True)
+
+print(df['SPOS'].head(10))
+
+df['SPOS'].fillna(method='bfill', inplace=True) 
+print(df['SPOS'].head(10))
+
+df['DSBDA'].fillna(method='pad', inplace=True)
+print(df['DSBDA'].head(10))
+
+df['WT'].fillna(method='pad', inplace=True)
+print(df['WT'].head(10))
+
+df['DA'].fillna(method='pad', inplace=True)
+print(df['DA'].head(10))
+
 df.head()
 
-df.isnull().sum()
+df.shape
 
-df.dropna()
+plt.boxplot(x=df['SPOS'])
 
-math_score_mean = df["math score"].mean()
-df["math score"] = df["math score"].fillna(math_score_mean)
-df.head()
+plt.boxplot(x=df['DSBDA'])
 
-df.boxplot()
+plt.boxplot(x=df['WT'])
 
-newdf = df[df["math score"] > 30]
-newdf.head()
-
-newdf.boxplot()
